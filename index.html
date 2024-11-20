@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Browser</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="browser-controls">
+    <input type="text" id="urlInput" placeholder="Enter URL" />
+    <button id="goButton">Go</button>
+    <button id="backButton">Back</button>
+    <button id="forwardButton">Forward</button>
+  </div>
+  <div id="webview-container">
+    <webview id="webview" src="https://example.com"></webview>
+  </div>
+  <script src="preload.js"></script>
+</body>
+</html>
+
+

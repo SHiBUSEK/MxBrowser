@@ -1,0 +1,42 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+#browser-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background: #f0f0f0;
+}
+
+#urlInput {
+  width: 50%;
+  padding: 5px;
+  margin-right: 5px;
+}
+
+button {
+  padding: 5px 10px;
+  margin: 0 5px;
+}
+
+#webview-container {
+  flex: 1; /* Dodaj flex, aby zajmowało całą dostępną przestrzeń */
+  width: 100%;
+  box-sizing: border-box; /* Upewnij się, że wymiary są obliczane bez uwzględniania paddingu i borderów */
+  overflow: hidden; /* Upewnij się, że nie ma przewijania */
+}
+
+webview {
+  width: 100%;
+  height: 100%;
+  border: none; /* Upewnij się, że nie ma obramowania */
+}
+

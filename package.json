@@ -1,0 +1,56 @@
+{
+  "name": "mxbrowser",
+  "version": "0.0.4",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron --no-sandbox .",
+    "build": "electron-builder"
+  },
+  "keywords": [],
+  "author": "Shibusek",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.shibusek.mxbrowser",
+    "productName": "MxBrowser",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "assets/",
+      "main.js",
+      "preload.js",
+      "index.html",
+      "package.json",
+      "styles.css"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.png"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.png"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "assets/icon.png"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "twoj_github_użytkownik",
+        "repo": "nazwa_repozytorium",
+        "private": true,
+        "token": "${GH_TOKEN}"
+      }
+    ]
+  },
+  "dependencies": {
+    "electron-updater": "^6.3.9"
+  }
+}
