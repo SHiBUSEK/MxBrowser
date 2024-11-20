@@ -5,6 +5,8 @@ window.addEventListener('DOMContentLoaded', () => {
   const forwardButton = document.getElementById('forwardButton');
   const webview = document.getElementById('webview');
 
+  urlInput.value = 'https://example.com';
+
   goButton.addEventListener('click', () => {
     let url = urlInput.value;
     if (!url.startsWith('http://') && !url.startsWith('https://')) {
@@ -23,6 +25,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
   webview.addEventListener('did-navigate', (event) => {
     urlInput.value = event.url;
+  });
+
+  webview.addEventListener('did-fail-load', (event) => {
+    console.error('Failed to load URL:', event.validatedURL, 'with error:', event.errorDescription);
   });
 });
 

@@ -1,4 +1,5 @@
-const { app, BrowserWindow, nativeImage, autoUpdater } = require('electron');
+const { app, BrowserWindow, nativeImage } = require('electron');
+const { autoUpdater } = require('electron-updater');
 const path = require('path');
 
 const preloadPath = path.join(__dirname, 'preload.js');
@@ -25,7 +26,15 @@ function createWindow() {
 
 app.whenReady().then(() => {
   createWindow();
-  autoUpdater.checkForUpdatesAndNotify();
+  
+  // Sprawdzenie dostępności funkcji i obsługa błędów
+  if (typeof autoUpdater.checkForUpdatesAndNotify === 'function') {
+    autoUpdater.checkForUpdatesAndNotify().catch(error => {
+      console.error('Error checking for updates:', error);
+    });
+  } else {
+    console.error('autoUpdater.checkForUpdatesAndNotify is not a function');
+  }
 });
 
 app.on('window-all-closed', () => {
@@ -47,9 +56,3 @@ autoUpdater.on('update-available', () => {
 autoUpdater.on('update-downloaded', () => {
   console.log('Aktualizacja pobrana. Aplikacja zostanie zaktualizowana po restarcie.');
 });
-
-
-
-
-
-

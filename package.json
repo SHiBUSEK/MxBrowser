@@ -1,6 +1,6 @@
 {
   "name": "mxbrowser",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "main.js",
   "scripts": {
     "start": "electron --no-sandbox .",
@@ -43,14 +43,13 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "twoj_github_użytkownik",
-        "repo": "nazwa_repozytorium",
-        "private": true,
-        "token": "${GH_TOKEN}"
+        "owner": "SHiBUSEK",
+        "repo": "MxBrowser"
       }
     ]
   },
   "dependencies": {
+    "electron-log": "^5.2.2",
     "electron-updater": "^6.3.9"
   }
 }
