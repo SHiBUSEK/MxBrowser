@@ -27,7 +27,6 @@ function createWindow() {
 app.whenReady().then(() => {
   createWindow();
   
-  // Sprawdzenie dostępności funkcji i obsługa błędów
   if (typeof autoUpdater.checkForUpdatesAndNotify === 'function') {
     autoUpdater.checkForUpdatesAndNotify().catch(error => {
       console.error('Error checking for updates:', error);
@@ -50,9 +49,9 @@ app.on('activate', () => {
 });
 
 autoUpdater.on('update-available', () => {
-  console.log('Aktualizacja dostępna.');
+  console.log('Update available.');
 });
 
 autoUpdater.on('update-downloaded', () => {
-  console.log('Aktualizacja pobrana. Aplikacja zostanie zaktualizowana po restarcie.');
+  console.log('Update downloaded. Changes will be visable after restarting.');
 });
