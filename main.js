@@ -1,8 +1,9 @@
+const { Menu } = require('electron');
 const { app, BrowserWindow, nativeImage } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const path = require('path');
-
 const preloadPath = path.join(__dirname, 'preload.js');
+Menu.setApplicationMenu(null);
 
 function createWindow() {
   const iconPath = path.join(__dirname, 'assets', 'icon.png');
