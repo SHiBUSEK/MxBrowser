@@ -27,12 +27,5 @@ window.addEventListener('DOMContentLoaded', () => {
     urlInput.value = event.url;
   });
 
-  webview.addEventListener('did-fail-load', (event) => {
-    console.error('Failed to load URL:', event.validatedURL, 'with error:', event.errorDescription);
-  });
+  webview.addEventListener('did-fail-load', () => {});
 });
-
-
-
-
-

@@ -12,31 +12,19 @@ html, body {
   display: flex;
   align-items: center;
   padding: 10px;
-  background: #f0f0f0;
-}
-
-#backButton, #forwardButton {
-  padding: 5px 10px;
-  margin: 0 5px;
-  background: none;
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
+  background: #181818;
 }
 
 #urlInput {
+  height: 40px;
   flex-grow: 1;
-  padding: 5px;
-  margin: 0 5px;
-}
-
-#goButton {
-  padding: 5px 10px;
-  margin-left: 5px;
-  background: #007bff;
+  padding: 10px;
+  border: 2px solid #ff0000;
+  border-radius: 5px;
+  font-size: 1em;
+  box-sizing: border-box;
+  background: #000;
   color: white;
-  border: none;
-  cursor: pointer;
 }
 
 #webview-container {
@@ -50,4 +38,34 @@ webview {
   width: 100%;
   height: 100%;
   border: none;
+}
+
+#backButton, #forwardButton, #goButton {
+  background-color: #ff0000;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+  height: 40px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+}
+
+#backButton:hover, #forwardButton:hover, #goButton:hover {
+  transform: scale(1.1);
+  background-color: #b30000;
+}
+
+#backButton, #forwardButton {
+  width: 40px;
+}
+
+#goButton {
+  font-family: 'Courier New', Courier, monospace;
 }

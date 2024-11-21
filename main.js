@@ -27,32 +27,19 @@ function createWindow() {
 
 app.whenReady().then(() => {
   createWindow();
-  
+
   if (typeof autoUpdater.checkForUpdatesAndNotify === 'function') {
-    autoUpdater.checkForUpdatesAndNotify().catch(error => {
-      console.error('Error checking for updates:', error);
-    });
-  } else {
-    console.error('autoUpdater.checkForUpdatesAndNotify is not a function');
+    autoUpdater.checkForUpdatesAndNotify().catch(() => {});
   }
 });
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+  if (process.platform !== 'darwin') app.quit();
 });
 
 app.on('activate', () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
-  }
+  if (BrowserWindow.getAllWindows().length === 0) createWindow();
 });
 
-autoUpdater.on('update-available', () => {
-  console.log('Update available.');
-});
-
-autoUpdater.on('update-downloaded', () => {
-  console.log('Update downloaded. Changes will be visable after restarting.');
-});
+autoUpdater.on('update-available', () => {});
+autoUpdater.on('update-downloaded', () => {});
