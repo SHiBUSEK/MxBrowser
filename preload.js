@@ -3,7 +3,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const urlInput = document.getElementById('urlInput');
   const backButton = document.getElementById('backButton');
   const forwardButton = document.getElementById('forwardButton');
-  const webview = document.getElementById('webview');
+  const tabsList = document.getElementById('tabs-list');
 
   urlInput.value = 'https://example.com';
 
@@ -12,20 +12,37 @@ window.addEventListener('DOMContentLoaded', () => {
     if (!url.startsWith('http://') && !url.startsWith('https://')) {
       url = 'http://' + url;
     }
-    webview.src = url;
+    const activeTabId = document.querySelector('.tab.active').dataset.tabId;
+    const activeWebview = document.querySelector(`webview[data-tab-id="${activeTabId}"]`);
+    if (activeWebview) {
+      activeWebview.src = url;
+    }
   });
 
   backButton.addEventListener('click', () => {
-    webview.goBack();
+    const activeTabId = document.querySelector('.tab.active').dataset.tabId;
+    const activeWebview = document.querySelector(`webview[data-tab-id="${activeTabId}"]`);
+    if (activeWebview) {
+      activeWebview.goBack();
+    }
   });
 
   forwardButton.addEventListener('click', () => {
-    webview.goForward();
+    const activeTabId = document.querySelector('.tab.active').dataset.tabId;
+    const activeWebview = document.querySelector(`webview[data-tab-id="${activeTabId}"]`);
+    if (activeWebview) {
+      activeWebview.goForward();
+    }
   });
 
-  webview.addEventListener('did-navigate', (event) => {
-    urlInput.value = event.url;
+  tabsList.addEventListener('dblclick', () => {
+    const createNewTabEvent = new CustomEvent('create-new-tab');
+    document.dispatchEvent(createNewTabEvent);
   });
 
-  webview.addEventListener('did-fail-load', () => {});
+  document.addEventListener('create-new-tab', () => {
+    if (window.createNewTab) {
+      window.createNewTab();
+    }
+  });
 });

@@ -1,11 +1,11 @@
-const { Menu } = require('electron');
+const { Menu, globalShortcut } = require('electron');
 const { app, BrowserWindow, nativeImage } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const log = require('electron-log');
 const path = require('path');
 const preloadPath = path.join(__dirname, 'preload.js');
-Menu.setApplicationMenu(null);
 
+Menu.setApplicationMenu(null);
 log.transports.file.level = 'info';
 log.transports.file.file = path.join(app.getPath('userData'), 'logs', 'main.log');
 
@@ -20,13 +20,18 @@ function createWindow() {
       preload: preloadPath,
       nodeIntegration: false,
       contextIsolation: true,
-      webviewTag: true
+      webviewTag: true,
+      sandbox: true,
     },
     icon: icon
   });
 
   win.loadFile('index.html');
   win.setTitle('MxBrowser');
+
+  globalShortcut.register('Control+Shift+I', () => {
+    win.webContents.openDevTools();
+  });
 }
 
 app.whenReady().then(() => {
@@ -38,6 +43,13 @@ app.whenReady().then(() => {
       log.error('Error checking for updates:', error);
     });
   }
+
+  globalShortcut.register('Control+Shift+I', () => {
+    const focusedWindow = BrowserWindow.getFocusedWindow();
+    if (focusedWindow) {
+      focusedWindow.webContents.openDevTools();
+    }
+  });
 });
 
 app.on('window-all-closed', () => {
@@ -46,6 +58,10 @@ app.on('window-all-closed', () => {
 
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) createWindow();
+});
+
+app.on('will-quit', () => {
+  globalShortcut.unregisterAll();
 });
 
 autoUpdater.on('update-available', (info) => {
@@ -72,4 +88,3 @@ autoUpdater.on('download-progress', (progressObj) => {
   let log_message = `Download speed: ${progressObj.bytesPerSecond} - Downloaded ${progressObj.percent}% (${progressObj.transferred}/${progressObj.total})`;
   log.info(log_message);
 });
-

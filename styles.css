@@ -27,20 +27,79 @@ html, body {
   color: white;
 }
 
+#tabs-container {
+  background-color: #181818;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+#tabs-list {
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  flex-grow: 1;
+}
+
+.tab {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  margin-right: 5px;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+}
+
+.browser-tab iframe { 
+  width: 100%; 
+  height: 100%; 
+  border: none;}
+
+.tab:hover {
+  background-color: #555;
+}
+
+.tab.active {
+  background-color: #ff0000;
+}
+
 #webview-container {
-  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   width: 100%;
-  box-sizing: border-box;
   overflow: hidden;
 }
 
-webview {
+.browser-tab {
+  flex: 1;
   width: 100%;
   height: 100%;
   border: none;
 }
 
-#backButton, #forwardButton, #goButton {
+.tab {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+webview {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.if {
+  position: absolute;
+  height: 100%;
+  width: 100%
+}
+#backButton, #forwardButton, #goButton, #newTabButton {
   background-color: #ff0000;
   color: white;
   border: none;
@@ -57,7 +116,7 @@ webview {
   font-size: 1.5em;
 }
 
-#backButton:hover, #forwardButton:hover, #goButton:hover {
+#backButton:hover, #forwardButton:hover, #goButton:hover, #newTabButton:hover {
   transform: scale(1.1);
   background-color: #b30000;
 }
@@ -66,6 +125,6 @@ webview {
   width: 40px;
 }
 
-#goButton {
+#goButton, #newTabButton {
   font-family: 'Courier New', Courier, monospace;
 }
