@@ -5,7 +5,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const forwardButton = document.getElementById('forwardButton');
   const tabsList = document.getElementById('tabs-list');
 
-  urlInput.value = 'https://example.com';
+   urlInput.value = 'newtab.html';
 
   goButton.addEventListener('click', () => {
     let url = urlInput.value;

@@ -1,4 +1,4 @@
-const { Menu, globalShortcut } = require('electron');
+const { Menu, globalShortcut, Notification } = require('electron');
 const { app, BrowserWindow, nativeImage } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const log = require('electron-log');
@@ -69,7 +69,14 @@ autoUpdater.on('update-available', (info) => {
 });
 
 autoUpdater.on('update-downloaded', (info) => {
-  log.info('Update downloaded. Changes will be visible after restarting:', info);
+  log.info('The changes will be visible after restarting the application.:', info);
+  
+  const options = {
+    title: 'MxBrowser Update Available',
+    body: 'A new version of MxBrowser is available. It will be installed the next time you restart the application.',
+    icon: path.join(__dirname, 'assets', 'icon.png')
+  };
+  new Notification({ title: options.title, body: options.body, icon: options.icon }).show();
 });
 
 autoUpdater.on('checking-for-update', () => {

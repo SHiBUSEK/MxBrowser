@@ -1,0 +1,18 @@
+body {
+    background-color: #181818;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .container {
+    text-align: center;
+  }
+  
+  .center-icon {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  
