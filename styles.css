@@ -11,7 +11,7 @@ html, body {
 #browser-controls {
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 1px;
   background: #181818;
 }
 
@@ -29,9 +29,10 @@ html, body {
 
 #tabs-container {
   background-color: #181818;
-  padding: 10px;
+  padding: 1px;
   display: flex;
   align-items: center;
+  padding-left: 6px;
 }
 
 #tabs-list {

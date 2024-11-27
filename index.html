@@ -7,17 +7,17 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="browser-controls">
-    <button id="backButton">&#8592;</button>
-    <button id="forwardButton">&#8594;</button>
-    <input type="text" id="urlInput" placeholder="Enter URL" />
-    <button id="goButton">Go</button>
-  </div>
   <div id="tabs-container">
     <ul id="tabs-list">
       <li class="tab active" data-tab-id="1">Tab 1</li>
     </ul>
     <button id="newTabButton">New Tab</button>
+  </div>
+  <div id="browser-controls">
+    <button id="backButton">&#8592;</button>
+    <button id="forwardButton">&#8594;</button>
+    <input type="text" id="urlInput" placeholder="Enter URL" />
+    <button id="goButton">Go</button>
   </div>
   <div id="webview-container">
     <webview id="webview" src="newtab.html" data-tab-id="1"></webview>

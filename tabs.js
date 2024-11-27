@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   let tabCount = 1;
-  const newTabUrl = 'newtab.html';  // Bez użycia require
+  const newTabUrl = 'newtab.html';
 
   function createNewTab() {
     tabCount++;
