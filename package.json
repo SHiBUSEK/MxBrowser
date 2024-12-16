@@ -1,6 +1,6 @@
 {
   "name": "mxbrowser",
-  "version": "0.2.2",
+  "version": "0.3.0-beta.1",
   "main": "main.js",
   "scripts": {
     "start": "electron .",

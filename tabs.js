@@ -78,6 +78,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+function updateListPosition() {
+  var moreButton = document.getElementById('MoreButton');
+  var moreList = document.getElementById('MoreList');
+  var rect = moreButton.getBoundingClientRect();
+  
+  moreList.style.left = rect.left + 'px';
+  moreList.style.top = rect.bottom + 'px';
+  
+  if (rect.bottom + moreList.offsetHeight > window.innerHeight) {
+      moreList.style.top = (rect.top - moreList.offsetHeight) + 'px';
+  }
+  if (rect.left + moreList.offsetWidth > window.innerWidth) {
+      moreList.style.left = (window.innerWidth - moreList.offsetWidth) + 'px';
+  }
+}
+
+document.getElementById('MoreButton').addEventListener('click', function() {
+  var moreList = document.getElementById('MoreList');
+  
+  if (moreList.style.display === 'none' || moreList.style.display === '') {
+      moreList.style.display = 'block';
+      updateListPosition();
+  } else {
+      moreList.style.display = 'none';
+  }
+});
+
+window.addEventListener('resize', function() {
+  var moreList = document.getElementById('MoreList');
+  if (moreList.style.display === 'block') {
+      updateListPosition();
+  }
+});
+
   const firstWebview = document.getElementById('webview');
   firstWebview.src = newTabUrl;
   firstWebview.addEventListener('did-finish-load', () => {
@@ -85,4 +119,5 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   switchTab(1);
+
 });

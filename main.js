@@ -26,6 +26,7 @@ function createWindow() {
     icon: icon
   });
 
+  win.setMinimumSize(450, 300);
   win.loadFile('index.html');
   win.setTitle('MxBrowser');
 
