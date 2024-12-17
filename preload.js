@@ -7,17 +7,18 @@ window.addEventListener('DOMContentLoaded', () => {
 
    urlInput.value = 'newtab.html';
 
-  goButton.addEventListener('click', () => {
-    let url = urlInput.value;
-    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-      url = 'http://' + url;
-    }
+   goButton.addEventListener('click', () => {
+    const newUrl = urlInput.value;
     const activeTabId = document.querySelector('.tab.active').dataset.tabId;
     const activeWebview = document.querySelector(`webview[data-tab-id="${activeTabId}"]`);
     if (activeWebview) {
-      activeWebview.src = url;
+      if (newUrl.includes(' ') || !newUrl.includes('.')) {
+        searchWithDuckDuckGo(newUrl);
+      } else {
+        navigateToUrl(newUrl);
+      }
     }
-  });
+  });  
 
   backButton.addEventListener('click', () => {
     const activeTabId = document.querySelector('.tab.active').dataset.tabId;

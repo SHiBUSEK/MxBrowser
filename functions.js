@@ -42,6 +42,39 @@ document.addEventListener('DOMContentLoaded', () => {
     document.dispatchEvent(switchTabEvent);
   }
 
+  function navigateToUrl(newUrl) {
+    const activeWebview = document.querySelector('webview[style*="display: block"]');
+    if (activeWebview) {
+      if (newUrl.includes(' ') || !newUrl.includes('.')) {
+        searchWithDuckDuckGo(newUrl);
+      } else {
+        const normalizedUrl = normalizeUrl(newUrl);
+        activeWebview.src = normalizedUrl;
+        updateTabTitle(activeWebview, activeWebview.dataset.tabId);
+      }
+    }
+  }  
+
+  function normalizeUrl(url) {
+    let normalizedUrl = url.trim();
+
+    if (!/^https?:\/\//i.test(normalizedUrl)) {
+      normalizedUrl = 'https://' + normalizedUrl;
+    }
+
+    normalizedUrl = normalizedUrl.replace(/^(https?:\/\/)(www\.)?www\./i, '$1$2');
+
+    return normalizedUrl;
+  }
+
+  function searchWithDuckDuckGo(query) {
+    const searchUrl = `https://duckduckgo.com/?t=h_&q=${encodeURIComponent(query)}&ia=web`;
+    const activeWebview = document.querySelector('webview[style*="display: block"]');
+    if (activeWebview) {
+      activeWebview.src = searchUrl;
+    }
+  }  
+
   document.getElementById('newTabButton').addEventListener('click', createNewTab);
 
   document.getElementById('tabs-list').addEventListener('click', event => {
@@ -60,57 +93,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('goButton').addEventListener('click', () => {
     const newUrl = document.getElementById('urlInput').value;
-    const activeWebview = document.querySelector('webview[style*="display: block"]');
-    if (activeWebview) {
-      activeWebview.src = newUrl;
-      updateTabTitle(activeWebview, activeWebview.dataset.tabId);
-    }
-  });
-
+      if (newUrl.includes(' ') || !newUrl.includes('.')) {
+        searchWithDuckDuckGo(newUrl);
+      } else {
+        navigateToUrl(newUrl);
+      }
+  });  
+  
   document.getElementById('urlInput').addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
       const newUrl = document.getElementById('urlInput').value;
-      const activeWebview = document.querySelector('webview[style*="display: block"]');
-      if (activeWebview) {
-        activeWebview.src = newUrl;
-        updateTabTitle(activeWebview, activeWebview.dataset.tabId);
+      if (newUrl.includes(' ') || !newUrl.includes('.')) {
+        searchWithDuckDuckGo(newUrl);
+      } else {
+        navigateToUrl(newUrl);
       }
     }
   });
-
-function updateListPosition() {
-  var moreButton = document.getElementById('MoreButton');
-  var moreList = document.getElementById('MoreList');
-  var rect = moreButton.getBoundingClientRect();
   
-  moreList.style.left = rect.left + 'px';
-  moreList.style.top = rect.bottom + 'px';
-  
-  if (rect.bottom + moreList.offsetHeight > window.innerHeight) {
-      moreList.style.top = (rect.top - moreList.offsetHeight) + 'px';
+  function updateListPosition() {
+    var moreButton = document.getElementById('MoreButton');
+    var moreList = document.getElementById('MoreList');
+    var rect = moreButton.getBoundingClientRect();
+    
+    moreList.style.left = rect.left + 'px';
+    moreList.style.top = rect.bottom + 'px';
+    
+    if (rect.bottom + moreList.offsetHeight > window.innerHeight) {
+        moreList.style.top = (rect.top - moreList.offsetHeight) + 'px';
+    }
+    if (rect.left + moreList.offsetWidth > window.innerWidth) {
+        moreList.style.left = (window.innerWidth - moreList.offsetWidth) + 'px';
+    }
   }
-  if (rect.left + moreList.offsetWidth > window.innerWidth) {
-      moreList.style.left = (window.innerWidth - moreList.offsetWidth) + 'px';
-  }
-}
 
-document.getElementById('MoreButton').addEventListener('click', function() {
-  var moreList = document.getElementById('MoreList');
-  
-  if (moreList.style.display === 'none' || moreList.style.display === '') {
-      moreList.style.display = 'block';
-      updateListPosition();
-  } else {
-      moreList.style.display = 'none';
-  }
-});
+  document.getElementById('MoreButton').addEventListener('click', function() {
+    var moreList = document.getElementById('MoreList');
+    
+    if (moreList.style.display === 'none' || moreList.style.display === '') {
+        moreList.style.display = 'block';
+        updateListPosition();
+    } else {
+        moreList.style.display = 'none';
+    }
+  });
 
-window.addEventListener('resize', function() {
-  var moreList = document.getElementById('MoreList');
-  if (moreList.style.display === 'block') {
-      updateListPosition();
-  }
-});
+  window.addEventListener('resize', function() {
+    var moreList = document.getElementById('MoreList');
+    if (moreList.style.display === 'block') {
+        updateListPosition();
+    }
+  });
 
   const firstWebview = document.getElementById('webview');
   firstWebview.src = newTabUrl;
@@ -119,5 +152,4 @@ window.addEventListener('resize', function() {
   });
 
   switchTab(1);
-
 });

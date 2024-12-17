@@ -1,5 +1,5 @@
 const { Menu, globalShortcut, Notification } = require('electron');
-const { app, BrowserWindow, nativeImage } = require('electron');
+const { app, BrowserWindow, nativeImage, session } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const log = require('electron-log');
 const path = require('path');
@@ -9,11 +9,13 @@ Menu.setApplicationMenu(null);
 log.transports.file.level = 'info';
 log.transports.file.file = path.join(app.getPath('userData'), 'logs', 'main.log');
 
+let mainWindow;
+
 function createWindow() {
   const iconPath = path.join(__dirname, 'assets', 'icon.png');
   const icon = nativeImage.createFromPath(iconPath);
 
-  const win = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
@@ -26,14 +28,95 @@ function createWindow() {
     icon: icon
   });
 
-  win.setMinimumSize(450, 300);
-  win.loadFile('index.html');
-  win.setTitle('MxBrowser');
+  mainWindow.setMinimumSize(450, 300);
+  mainWindow.loadFile('index.html');
+  mainWindow.setTitle('MxBrowser');
 
   globalShortcut.register('Control+Shift+I', () => {
-    win.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
+  });
+
+  session.defaultSession.webRequest.onBeforeRequest((details, callback) => {
+    processUrlMiddleware(details.url, callback);
   });
 }
+
+const isValidUrl = (url) => {
+  try {
+    new URL(url);
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
+
+const normalizeUrl = (url) => {
+  let normalizedUrl = url.trim();
+
+  if (!/^https?:\/\//i.test(normalizedUrl)) {
+    normalizedUrl = 'https://' + normalizedUrl;
+  }
+
+  normalizedUrl = normalizedUrl.replace(/^(https?:\/\/)(www\.)?www\./i, '$1$2');
+
+  return normalizedUrl;
+};
+
+const searchWithDuckDuckGo = (query) => {
+  const searchUrl = `https://duckduckgo.com/?t=h_&q=${encodeURIComponent(query)}&ia=web`;
+  mainWindow.webContents.executeJavaScript(`
+    var activeWebview = document.querySelector('webview[style*="display: block"]');
+    if (activeWebview) {
+      activeWebview.src = '${searchUrl}';
+    }
+  `);
+};
+
+const openUrl = (url, fallbackUrl, callback) => {
+  fetch(url)
+    .then(response => {
+      if (response.ok) {
+        callback({ cancel: true, url: url });
+      } else {
+        fetch(fallbackUrl).then(httpResponse => {
+          if (httpResponse.ok) {
+            callback({ cancel: true, url: fallbackUrl });
+          } else {
+            callback({ cancel: true });
+            searchWithDuckDuckGo(url);
+          }
+        }).catch(() => {
+          callback({ cancel: true });
+          searchWithDuckDuckGo(url);
+        });
+      }
+    })
+    .catch(() => {
+      fetch(fallbackUrl).then(httpResponse => {
+        if (httpResponse.ok) {
+          callback({ cancel: true, url: fallbackUrl });
+        } else {
+          callback({ cancel: true });
+          searchWithDuckDuckGo(url);
+        }
+      }).catch(() => {
+        callback({ cancel: true });
+        searchWithDuckDuckGo(url);
+      });
+    });
+};
+
+const processUrlMiddleware = (url, callback) => {
+  if (url.endsWith('.html') || url.endsWith('.css') || isValidUrl(url)) {
+    callback({ cancel: false });
+    return;
+  }
+
+  const normalizedUrl = normalizeUrl(url);
+  const httpUrl = normalizedUrl.replace(/^https:\/\//i, 'http://');
+
+  openUrl(normalizedUrl, httpUrl, callback);
+};
 
 app.whenReady().then(() => {
   createWindow();
