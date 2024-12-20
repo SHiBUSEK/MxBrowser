@@ -6,6 +6,7 @@ html, body {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  background: #181818;
 }
 
 #browser-controls {
@@ -13,6 +14,7 @@ html, body {
   align-items: center;
   padding: 1px;
   background: #181818;
+  margin-top: 3px;
 }
 
 #urlInput {
@@ -20,38 +22,44 @@ html, body {
   flex-grow: 1;
   padding: 10px;
   border: 2px solid #ff0000;
-  border-radius: 5px;
+  border-radius: 15px;
   font-size: 1em;
   box-sizing: border-box;
   background: #000;
   color: white;
-  margin-right: 5px;
+  padding-right: 30px;
 }
 
 #tabs-container {
-  background-color: #181818;
   padding: 1px;
+  background-color: #181818;
   display: flex;
   align-items: center;
-  padding-left: 6px;
+  height: 40px;
 }
 
 #tabs-list {
   display: flex;
   list-style-type: none;
   margin: 0;
-  padding: 0;
+  padding: 0; 
   flex-grow: 1;
 }
 
 .tab {
   background-color: #333;
   color: white;
-  padding: 10px;
   cursor: pointer;
   margin-right: 5px;
-  border-radius: 5px;
+  border-radius: 15px;
   transition: background-color 0.2s;
+  width: 100%;
+  height: 40px;
+  border: none;
+  display: flex;
+  align-items: center;
+  padding-right: 10px;
+  padding-left: 10px;
 }
 
 .browser-tab iframe { 
@@ -82,21 +90,12 @@ html, body {
   border: none;
 }
 
-.tab {
-  flex: 1;
-  width: 100%;
-  height: 100%;
-  border: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 webview {
   flex: 1;
   width: 100%;
   height: 100%;
   border: none;
+  background-color: #181818;
 }
 
 .if {
@@ -105,30 +104,26 @@ webview {
   width: 100%
 }
 
-#backButton, #forwardButton, #goButton, #newTabButton, #MoreButton{
-  background-color: #ff0000;
+#backButton, #forwardButton, #goButton, #newTabButton, #MoreButton, #downloadsButton{
+  background-color: transparent;
   color: white;
   border: none;
-  padding: 10px;
   margin: 5px;
-  border-radius: 5px;
+  border-radius: 50%;
   cursor: pointer;
   transition: transform 0.2s, background-color 0.2s;
-  height: 40px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2em;
+  font-size: 1.4em;
+  width: 30px;
+  height: 30px;
 }
 
-#backButton:hover, #forwardButton:hover, #goButton:hover, #newTabButton:hover, #MoreButton:hover{
+#backButton:hover, #forwardButton:hover, #goButton:hover, #newTabButton:hover, #MoreButton:hover, #downloadsButton:hover{
   transform: scale(1.1);
   background-color: #b30000;
-}
-
-#backButton, #forwardButton {
-  width: 40px;
 }
 
 #goButton, #newTabButton {
@@ -138,31 +133,25 @@ webview {
 .close-tab {
   margin-left: auto;
   padding: 0 5px;
-  color: #ff0000;
+  color: #ffffff;
   cursor: pointer;
   background: none;
   border: none;
   font-size: 16px;
+  border-radius: 50%;
+  transition: transform 0.2s, background-color 0.2s;
 }
 
 .close-tab:hover {
-  color: #b30000;
-  background-color: lightgray;
-}
-
-#MoreButton, #goButton {
-  width: 47.5px;
-}
-
-#newTabButton {
-  width: 105px
+  color: #ffffff;
+  background-color: #b30000;
+  transform: scale(1.2);
 }
 
 #MoreList {
   display: none;
   position: absolute;
-  background-color: #181818;
-  border: 1px solid #181818;
+  background-color: transparent;
   padding: 0px;
   list-style-type: none;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -181,4 +170,64 @@ webview {
 
 #MoreList ul:hover {
   background-color: #b30000;
+  cursor: pointer
 }
+
+#urlInputDiv {
+  flex-grow: 1;
+  border-radius: 5px;
+  font-size: 1em;
+  background: transparent;
+  color: white;
+  margin-right: 5px;
+  display: flex;
+  position: relative;
+  justify-content: flex-end;
+}
+
+#goButton {
+  position: absolute;
+}
+
+#FunctionsButton {
+  background-color: transparent;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+  box-sizing: border-box;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  width: 70px;
+  height: 30px;
+  margin: 5px;
+}
+
+#FunctionsButton:hover {
+  transform: scale(1.1);
+  background-color: #b30000;
+}
+
+#downloadsButton {
+  flex-direction: column;
+  font-size: 1em;
+  justify-content: center;
+  align-items: center;
+}
+
+#downloadsButton .fa-arrow-down {
+  position: relative
+}
+
+#downloadsButton .fa-minus {
+  position: relative
+}
+
+#newTabButton {
+  margin-right: 45px;
+}
+

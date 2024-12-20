@@ -5,19 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MxBrowser</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
   <div id="tabs-container">
+    <button id="FunctionsButton"><i class="fas fa-list icon"></i></button>
     <ul id="tabs-list">
       <li class="tab active" data-tab-id="1">Tab 1</li>
     </ul>
-    <button id="newTabButton">New Tab</button>
+    <button id="newTabButton">+</button>
   </div>
   <div id="browser-controls">
-    <button id="backButton">&#8592;</button>
-    <button id="forwardButton">&#8594;</button>
-    <input type="text" id="urlInput" placeholder="Enter URL" />
-    <button id="goButton">Go</button>
+    <button id="backButton">←</button>
+    <button id="forwardButton">→</button>
+    <div id="urlInputDiv">
+    <input type="text" id="urlInput" placeholder="Enter URL"/>
+    <button id="goButton">🡒</button>
+    </div>
+    <button id="downloadsButton">
+      <i class="fas fa-arrow-down icon"></i>
+      <i class="fas fa-minus icon"></i>
+     </button>
     <button id="MoreButton">&#8942;</button>
   </div>
   <div id="webview-container">
