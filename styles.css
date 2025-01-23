@@ -104,14 +104,14 @@ webview {
   width: 100%
 }
 
-#backButton, #forwardButton, #goButton, #newTabButton, #MoreButton, #downloadsButton{
+#backButton, #forwardButton, #goButton, #newTabButton, #MoreButton, #downloadsButton, #pluginsButton{
   background-color: transparent;
   color: white;
   border: none;
   margin: 5px;
   border-radius: 50%;
   cursor: pointer;
-  transition: transform 0.2s, background-color 0.2s;
+  transition: transform 0.25s, background-color 0.25s;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -121,7 +121,7 @@ webview {
   height: 30px;
 }
 
-#backButton:hover, #forwardButton:hover, #goButton:hover, #newTabButton:hover, #MoreButton:hover, #downloadsButton:hover{
+#backButton:hover, #forwardButton:hover, #goButton:hover, #newTabButton:hover, #MoreButton:hover, #downloadsButton:hover, #pluginsButton:hover{
   transform: scale(1.1);
   background-color: #b30000;
 }
@@ -211,23 +211,3 @@ webview {
   transform: scale(1.1);
   background-color: #b30000;
 }
-
-#downloadsButton {
-  flex-direction: column;
-  font-size: 1em;
-  justify-content: center;
-  align-items: center;
-}
-
-#downloadsButton .fa-arrow-down {
-  position: relative
-}
-
-#downloadsButton .fa-minus {
-  position: relative
-}
-
-#newTabButton {
-  margin-right: 45px;
-}
-
